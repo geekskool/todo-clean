@@ -188,4 +188,14 @@ IO.createIO(cb => app.get('/', cb)).mayBeUndefined((req, res) => req.session.use
 IO.createIO(cb => app.get('/login', cb)).then((req, res) => {
     res.send('login page');
 });
+IO.createIO(cb => app.get('/logout', cb)).map((req, res, _) => {
+    (delete req.session.user)
+    return [
+        req,
+        res,
+        _
+    ];
+}).then((req, res, _) => {
+    res.redirect('/');
+});
 app.listen(3000);

@@ -23,4 +23,9 @@ do
   req res <- createIO (app.get '/login')
   res.send 'login page'
 
+do
+  req res _ <- createIO (app.get '/logout')
+  delete req.session.user
+  res.redirect '/'
+
 app.listen 3000
